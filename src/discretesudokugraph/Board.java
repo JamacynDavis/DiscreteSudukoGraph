@@ -12,7 +12,8 @@ import javax.swing.*;
  * @author jmdav
  */
 public class Board {
-    JFrame f;     
+    JFrame f;
+    int[][] entries = new int[9][9];
     
     Board(String d[][], int dataDim, int invX, int invY){    
         f = new JFrame(); 
@@ -28,19 +29,19 @@ public class Board {
         
         JButton b = new JButton("Exit");
         b.setBounds(250,250,95,30);
+        b.setBackground(Color.red);
         b.addActionListener(new ActionListener(){  
         public void actionPerformed(ActionEvent e){  
                     f.dispose();
-
                 }  
             });
         f.add(b);
-        f.add(sp);    
+        f.add(sp); 
         
 
         
         f.setSize(600,700);  
-        jt.setBackground(Color.WHITE);
+        jt.setBackground(Color.BLACK);
         
         if ( invX != -1 ) { 
             jt.changeSelection(invX, invY, false, false);  

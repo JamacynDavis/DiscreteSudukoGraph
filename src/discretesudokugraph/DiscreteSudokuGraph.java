@@ -1,5 +1,13 @@
 package discretesudokugraph;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 /** Sudoku Graph Project 
 * Jamacyn Davis 
 * September 20, 2021 
@@ -13,23 +21,89 @@ package discretesudokugraph;
 */
 
 public class DiscreteSudokuGraph {
-
+    static JFrame f;
+    static int[][] sudokuArr = new int[9][9];
+    static int invalidx = -1;  
+    static int invalidy = -1;
+    
     public static void main(String[] args) {
-        int invalidx = -1;  
-        int invalidy = -1;
+
         //sudukoArr = new int[9][9]; 
-        int[][] sudokuArr = 
-                {{1, 2, 3,   8, 6, 7,   4, 5, 9},
-                {4, 5, 9,   1, 2, 3,   8, 6, 7}, 
-                {8, 6, 7,   4, 5, 9,   1, 2, 3}, 
-                {2, 9, 1,   3, 4, 8,   5, 7, 6},
-                {3, 7, 8,   5, 9, 6,   2, 4, 1},
-                {5, 4, 6,   2, 7, 1,   3, 9, 8}, 
-                {9, 1, 4,   6, 8, 2,   7, 3, 5},
-                {7, 8, 2,   9, 3, 5,   6, 1, 4}, 
-                {6, 3, 5,   7, 1, 4,   9, 8, 2}};   
-                
-        String[] colors = {"Yellow", "Blue", "Orange", "Purple", "Red", "Aqua", "Green", "Light Blue", "Light Green"};
+        // creates the board display 
+           
+        
+        int[][] entries = new int[9][9];
+       
+        f = new JFrame(); 
+        f.setTitle("Sudoku -- Jamacyn Davis");
+            
+        String column[] = new String[9];
+        for(int i  = 0; i < 9; i++){
+            column[i] = "";
+        }
+        JTable jt=new JTable(new String[9][9],column);    
+        jt.setBounds(100, 100, 400, 600);  
+        JScrollPane sp=new JScrollPane(jt);
+        
+        JButton b = new JButton("Exit");
+        b.setBounds(250,250,95,30);
+        b.setBackground(Color.red);
+        b.addActionListener(new ActionListener(){  
+        @Override
+        public void actionPerformed(ActionEvent e){  
+                    f.dispose();
+                }  
+            });
+        
+        JButton s = new JButton("Submit Board");
+        s.setBounds(350,250,95,30);
+        s.setBackground(Color.red);
+        s.addActionListener(new ActionListener(){  
+        @Override
+        public void actionPerformed(ActionEvent e){ 
+            for( int i = 0; i < sudokuArr.length; i++ ) { 
+                for ( int j = 0; j < sudokuArr.length; j++ ) { 
+                    sudokuArr[i][j] = Integer.parseInt((String) jt.getValueAt(i, j)); 
+                }
+            }
+            verify(); 
+        }  
+            });
+        f.add(b);
+        f.add(s);
+        f.add(sp); 
+        
+
+        
+        f.setSize(600,700);  
+        jt.setBackground(Color.BLACK);
+  
+       
+        f.setVisible(true);  
+       
+    
+    
+
+    
+        //Board b = new Board(new String[9][9], 9, invalidx, invalidy);
+//          int[][] sudokuArr = 
+//                {{1, 2, 3,   8, 6, 7,   4, 5, 9},
+//                {4, 5, 9,   1, 2, 3,   8, 6, 7}, 
+//                {8, 6, 7,   4, 5, 9,   1, 2, 3}, 
+//                {2, 9, 1,   3, 4, 8,   5, 7, 6},
+//                {3, 7, 8,   5, 9, 6,   2, 4, 1},
+//                {5, 4, 6,   2, 7, 1,   3, 9, 8}, 
+//                {9, 1, 4,   6, 8, 2,   7, 3, 5},
+//                {7, 8, 2,   9, 3, 5,   6, 1, 4}, 
+//                {6, 3, 5,   7, 1, 4,   9, 8, 2}};   
+         
+
+
+    // Board b = new Board(colorsArr, colorsArr.length, 0, 0); 
+    }
+    
+    public static void verify(){
+                String[] colors = {"Yellow", "Blue", "Orange", "Purple", "Red", "Aqua", "Green", "Light Blue", "Light Green"};
         
         String[][] colorsArr = new String[sudokuArr.length][sudokuArr[0].length]; 
         for (int i = 0; i < sudokuArr.length; i += 1) { 
@@ -137,10 +211,6 @@ public class DiscreteSudokuGraph {
                 break; 
             }
         } 
-    
-    // creates the board display 
-    Board b = new Board(colorsArr, colorsArr.length, invalidx, invalidy); 
-    // Board b = new Board(colorsArr, colorsArr.length, 0, 0); 
     }
    
     
