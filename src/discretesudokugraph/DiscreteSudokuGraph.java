@@ -76,8 +76,8 @@ public class DiscreteSudokuGraph {
 
         
         f.setSize(600,700);  
-        jt.setBackground(Color.BLACK);
-  
+        jt.setBackground(Color.WHITE);
+        f.setBackground(Color.GRAY);
        
         f.setVisible(true);  
        
