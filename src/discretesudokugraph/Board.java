@@ -20,7 +20,7 @@ public class Board {
         f.setTitle("Sudoku -- Jamacyn Davis");
             
         String column[] = new String[dataDim];
-        for(int i  = 0; i < dataDim; i++){
+        for(int i = 0; i < dataDim; i++){
             column[i] = "";
         }
         JTable jt=new JTable(d,column);    

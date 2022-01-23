@@ -4,10 +4,6 @@
  */
 package discretesudokugraph;
 
-/**
- *
- * @author jmdav
- */
 public class GuiForm extends javax.swing.JFrame {
     
     int[][] sudokuArr = new int[9][9];
@@ -32,7 +28,6 @@ public class GuiForm extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         entryTable = new javax.swing.JTable(9,9);
-        ExitButton = new javax.swing.JButton();
         SubmitButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         colorTable = new javax.swing.JTable(9,9);
@@ -41,14 +36,8 @@ public class GuiForm extends javax.swing.JFrame {
         setTitle("Sudoku");
 
         entryTable.setName("entryTable"); // NOI18N
+        entryTable.setTableHeader(null);
         jScrollPane1.setViewportView(entryTable);
-
-        ExitButton.setText("Exit");
-        ExitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitButtonActionPerformed(evt);
-            }
-        });
 
         SubmitButton.setText("Submit");
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -57,6 +46,7 @@ public class GuiForm extends javax.swing.JFrame {
             }
         });
 
+        colorTable.setTableHeader(null);
         jScrollPane2.setViewportView(colorTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -66,9 +56,7 @@ public class GuiForm extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(ExitButton)
-                .addGap(54, 54, 54)
+                .addGap(158, 158, 158)
                 .addComponent(SubmitButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -77,9 +65,7 @@ public class GuiForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SubmitButton)
-                    .addComponent(ExitButton))
+                .addComponent(SubmitButton)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                 .addContainerGap())
@@ -88,17 +74,60 @@ public class GuiForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
-        //ExitButton.dispose();
-    }//GEN-LAST:event_ExitButtonActionPerformed
-
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
         for( int i = 0; i < sudokuArr.length; i++ ) {
-            for ( int j = 0; j < sudokuArr.length; j++ ) {
-                sudokuArr[i][j] = Integer.parseInt((String) entryTable.getValueAt(i, j));
+            for ( int j = 0; j < sudokuArr[i].length; j++ ) {
+                if (entryTable.getValueAt(i, j) == null ) { 
+                    sudokuArr[i][j] = 1; 
+                }
+                else { 
+                    sudokuArr[i][j] = Integer.parseInt((String) entryTable.getValueAt(i, j));
+                }
             }
         }
-        verify();
+      
+        
+        //added code 
+        String[] colors = {"Yellow", "Blue", "Orange", "Purple", "Red", "Aqua", "Green", "Light Blue", "Light Green"}; 
+        String[][] colorsArr = new String[sudokuArr.length][sudokuArr[0].length]; 
+        for (int i = 0; i < sudokuArr.length; i += 1) { 
+            for ( int j = 0; j < sudokuArr.length; j += 1 ) { 
+                if ( sudokuArr[i][j] == 1 ){ 
+                    colorsArr[i][j] = colors[0]; 
+                }
+                if ( sudokuArr[i][j] == 2 ){ 
+                    colorsArr[i][j] = colors[1]; 
+                }
+                if ( sudokuArr[i][j] == 3 ){ 
+                    colorsArr[i][j] = colors[2]; 
+                }
+                if ( sudokuArr[i][j] == 4 ){ 
+                    colorsArr[i][j] = colors[3]; 
+                }
+                if ( sudokuArr[i][j] == 5 ){ 
+                    colorsArr[i][j] = colors[4]; 
+                }                
+                if ( sudokuArr[i][j] == 6 ){ 
+                    colorsArr[i][j] = colors[5]; 
+                }                
+                if ( sudokuArr[i][j] == 7 ){ 
+                    colorsArr[i][j] = colors[6]; 
+                }                
+                if ( sudokuArr[i][j] == 8 ){ 
+                    colorsArr[i][j] = colors[7]; 
+                } 
+                if ( sudokuArr[i][j] == 9 ){ 
+                    colorsArr[i][j] = colors[8]; 
+                }
+            } 
+        }
+        
+        for ( int x = 0; x < colorsArr.length; x++ ) { 
+            for ( int y = 0; y < colorsArr.length; y++ ) { 
+                colorTable.setValueAt(colorsArr[x][y], x, y); 
+            }
+        }
+        verify();    
 
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
@@ -138,7 +167,6 @@ public class GuiForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ExitButton;
     private javax.swing.JButton SubmitButton;
     private javax.swing.JTable colorTable;
     private javax.swing.JTable entryTable;
@@ -147,41 +175,40 @@ public class GuiForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 public void verify(){
-                String[] colors = {"Yellow", "Blue", "Orange", "Purple", "Red", "Aqua", "Green", "Light Blue", "Light Green"};
         
-        String[][] colorsArr = new String[sudokuArr.length][sudokuArr[0].length]; 
-        for (int i = 0; i < sudokuArr.length; i += 1) { 
-            for ( int j = 0; j < sudokuArr.length; j += 1 ) { 
-                if ( sudokuArr[i][j] == 1 ){ 
-                    colorsArr[i][j] = colors[0]; 
-                }
-                if ( sudokuArr[i][j] == 2 ){ 
-                    colorsArr[i][j] = colors[1]; 
-                }
-                if ( sudokuArr[i][j] == 3 ){ 
-                    colorsArr[i][j] = colors[2]; 
-                }
-                if ( sudokuArr[i][j] == 4 ){ 
-                    colorsArr[i][j] = colors[3]; 
-                }
-                if ( sudokuArr[i][j] == 5 ){ 
-                    colorsArr[i][j] = colors[4]; 
-                }                
-                if ( sudokuArr[i][j] == 6 ){ 
-                    colorsArr[i][j] = colors[5]; 
-                }                
-                if ( sudokuArr[i][j] == 7 ){ 
-                    colorsArr[i][j] = colors[6]; 
-                }                
-                if ( sudokuArr[i][j] == 8 ){ 
-                    colorsArr[i][j] = colors[7]; 
-                } 
-                if ( sudokuArr[i][j] == 9 ){ 
-                    colorsArr[i][j] = colors[8]; 
-                }
-            }
-            
-        }
+        String[] colors = {"Yellow", "Blue", "Orange", "Purple", "Red", "Aqua", "Green", "Light Blue", "Light Green"};
+        //String[][] colorsArr = new String[sudokuArr.length][sudokuArr[0].length]; 
+//        for (int i = 0; i < sudokuArr.length; i += 1) { 
+//            for ( int j = 0; j < sudokuArr.length; j += 1 ) { 
+//                if ( sudokuArr[i][j] == 1 ){ 
+//                    colorsArr[i][j] = colors[0]; 
+//                }
+//                if ( sudokuArr[i][j] == 2 ){ 
+//                    colorsArr[i][j] = colors[1]; 
+//                }
+//                if ( sudokuArr[i][j] == 3 ){ 
+//                    colorsArr[i][j] = colors[2]; 
+//                }
+//                if ( sudokuArr[i][j] == 4 ){ 
+//                    colorsArr[i][j] = colors[3]; 
+//                }
+//                if ( sudokuArr[i][j] == 5 ){ 
+//                    colorsArr[i][j] = colors[4]; 
+//                }                
+//                if ( sudokuArr[i][j] == 6 ){ 
+//                    colorsArr[i][j] = colors[5]; 
+//                }                
+//                if ( sudokuArr[i][j] == 7 ){ 
+//                    colorsArr[i][j] = colors[6]; 
+//                }                
+//                if ( sudokuArr[i][j] == 8 ){ 
+//                    colorsArr[i][j] = colors[7]; 
+//                } 
+//                if ( sudokuArr[i][j] == 9 ){ 
+//                    colorsArr[i][j] = colors[8]; 
+//                }
+//            }
+        //}
         int[][] edges = new int[2000][4];
         
         // edgeCount keeps track of the edges added
